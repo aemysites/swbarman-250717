@@ -1,42 +1,45 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Get all direct children
+  // Get all immediate children
   const children = Array.from(element.children);
-  // Get all .col-md-4 columns (icons + headings)
-  const colMd4s = children.filter(c => c.classList.contains('col-md-4'));
-  // Get all .col-md-6 columns (text blocks)
-  const colMd6s = children.filter(c => c.classList.contains('col-md-6'));
 
-  // Build columns for first row: icons with headings
-  const firstRow = colMd4s.map(col => {
-    const cellContent = [];
-    // Only reference existing elements
+  // Extract top icon/heading columns (.col-md-4)
+  const iconColumns = children.filter(c => c.classList.contains('col-md-4')).map(col => {
+    // Create a wrapper div for stacking icon and heading
+    const div = document.createElement('div');
+    // Move the .fa-stack (icon)
     const icon = col.querySelector('.fa-stack');
-    if (icon) cellContent.push(icon);
-    const heading = col.querySelector('h4');
-    if (heading) cellContent.push(heading);
-    return cellContent;
+    if (icon) div.appendChild(icon);
+    // Move the heading
+    const heading = col.querySelector('h4, h3, h2, h1');
+    if (heading) div.appendChild(heading);
+    return div;
   });
 
-  // There should be 3 columns in total. If less, pad with empty strings.
-  while (firstRow.length < 3) firstRow.push('');
-
-  // Each .col-md-6 should provide text for a new row (center column)
-  const textRows = colMd6s.map(col => {
-    // There are always 3 columns in the block
-    // Place the paragraph in the center cell
-    const cells = ['', '', ''];
-    const p = col.querySelector('p');
-    if (p) cells[1] = p;
-    return cells;
+  // Find .col-md-6 paragraphs for the text rows
+  const textCols = children.filter(c => c.classList.contains('col-md-6')).map(col => {
+    // If there's only a <p>, use it; otherwise, use the whole col
+    const para = col.querySelector('p');
+    return para ? para : col;
   });
 
-  // Table header
-  const headerRow = ['Columns (columns3)'];
-  // Final table structure
-  const tableRows = [headerRow, firstRow, ...textRows];
+  // Ensure we have three columns for each row (pad with empty if needed)
+  function padToThree(arr) {
+    return arr.length === 3 ? arr : arr.concat(Array(3 - arr.length).fill(''));
+  }
 
-  // Create the block table
-  const table = WebImporter.DOMUtils.createTable(tableRows, document);
+  const rows = [
+    ['Columns (columns3)'],
+    padToThree(iconColumns),
+    padToThree(textCols),
+  ];
+
+  // Remove any trailing rows that are all empty
+  while (rows.length > 2 && rows[rows.length - 1].every(cell => cell === '' || (cell.textContent && !cell.textContent.trim()))) {
+    rows.pop();
+  }
+
+  // Create and replace
+  const table = WebImporter.DOMUtils.createTable(rows, document);
   element.replaceWith(table);
 }
