@@ -1,27 +1,37 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Header row: single column containing the block name
-  const headerRow = ['Columns (columns4)'];
-
   // Get all direct child divs (columns)
-  const children = Array.from(element.querySelectorAll(':scope > div'));
+  const columns = Array.from(element.querySelectorAll(':scope > div'));
 
-  // There are 3 col-md-4 for the first row, 2 col-md-6 for second row
-  const col4 = children.filter(c => c.classList.contains('col-md-4'));
-  const col6 = children.filter(c => c.classList.contains('col-md-6'));
+  // Partition columns by col-md-4 (first row) and col-md-6 (second row)
+  const firstRowCols = columns.filter(col => col.classList.contains('col-md-4'));
+  const secondRowCols = columns.filter(col => col.classList.contains('col-md-6'));
 
-  // First row: 3 col-md-4, pad right to 4 columns
-  const row1 = [col4[0] || '', col4[1] || '', col4[2] || '', ''];
-  // Second row: 2 col-md-6, pad right to 4 columns
-  const row2 = [col6[0] || '', col6[1] || '', '', ''];
+  // Helper to build a cell from a column
+  function cellFromColumn(col) {
+    // We'll gather all children of the column
+    const content = [];
+    for (let node of col.childNodes) {
+      if (node.nodeType === 1) { // element node
+        content.push(node);
+      }
+    }
+    // If only one element, don't wrap in array
+    return content.length === 1 ? content[0] : content;
+  }
 
-  // Construct cell data: header row as single column, then 4 columns for each content row
-  const cells = [
-    headerRow,
-    row1,
-    row2
-  ];
+  // Build table rows
+  const headerRow = ['Columns (columns4)'];
+  // Only add row if there are columns
+  const rows = [headerRow];
+  if (firstRowCols.length > 0) {
+    rows.push(firstRowCols.map(cellFromColumn));
+  }
+  if (secondRowCols.length > 0) {
+    rows.push(secondRowCols.map(cellFromColumn));
+  }
 
-  const table = WebImporter.DOMUtils.createTable(cells, document);
+  // Create the table and replace the element
+  const table = WebImporter.DOMUtils.createTable(rows, document);
   element.replaceWith(table);
 }
