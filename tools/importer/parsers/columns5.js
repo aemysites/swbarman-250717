@@ -1,23 +1,26 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // The first row must be a single cell with the block name
-  const headerRow = ['Columns (columns5)'];
-
-  // Get the .col-md-6 immediate children (these are the columns)
+  // Find the heading (if any) in the columns block
+  const heading = element.querySelector('.section-subhead-head');
+  // Find all immediate column children
   const columns = Array.from(element.querySelectorAll(':scope > .col-md-6'));
 
-  // For each column, collect ALL child nodes (preserving icons, headings, br, etc)
-  const contentCells = columns.map(col => {
-    const nodes = Array.from(col.childNodes).filter(n => {
-      // Remove empty text nodes
-      return !(n.nodeType === Node.TEXT_NODE && n.textContent.trim() === '');
-    });
-    // If only one node, just return it; if multiple, return array
-    return nodes.length === 1 ? nodes[0] : nodes;
-  });
+  // Build the block table data array
+  const cells = [];
+  // Table header as required by block name/variant
+  cells.push(['Columns (columns5)']);
 
-  // The second row is a single array, but with multiple cells for each column
-  const tableRows = [headerRow, contentCells];
-  const block = WebImporter.DOMUtils.createTable(tableRows, document);
-  element.replaceWith(block);
+  // If there's a heading, make it its own row, spanning all columns
+  if (heading) {
+    cells.push([heading]);
+  }
+
+  // Add the columns row(s) if any columns found
+  if (columns.length) {
+    cells.push(columns);
+  }
+
+  // Create the table and replace the original element
+  const table = WebImporter.DOMUtils.createTable(cells, document);
+  element.replaceWith(table);
 }
