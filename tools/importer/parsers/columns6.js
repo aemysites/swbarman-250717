@@ -1,26 +1,34 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Find all .col-md-4 direct children (icon+heading columns)
-  const columnDivs = Array.from(element.querySelectorAll(':scope > .col-md-4'));
-
-  // Find all .col-md-6 direct children (center content rows with <p>)
-  const col6Divs = Array.from(element.querySelectorAll(':scope > .col-md-6')).filter(div => div.querySelector('p'));
-  const paragraphs = col6Divs.reduce((acc, col) => {
-    const ps = Array.from(col.querySelectorAll('p'));
-    return acc.concat(ps);
-  }, []);
-
-  // The header must be a single cell (row with one column)
+  // Header row as per requirements
   const headerRow = ['Columns (columns6)'];
-  // The content rows should have the same number of columns as .col-md-4 divs
-  const numCols = columnDivs.length;
-  // First content row: the three icon+heading columns
-  const contentRow = columnDivs;
-  // Second content row: only the middle cell has content, the rest are empty
-  const subRow = Array.from({length: numCols}, (_, idx) => (idx === 1 ? paragraphs : ''));
 
-  // Compose the table as specified: header row with 1 column, then content rows
-  const cells = [headerRow, contentRow, subRow];
+  // Get all direct child divs
+  const children = Array.from(element.querySelectorAll(':scope > div'));
+
+  // Identify the three icon columns (col-md-4)
+  const iconCols = children.filter(div => div.classList.contains('col-md-4'));
+  // These should be 3 columns exactly, but handle if not
+  const rowIcons = [
+    iconCols[0] || '',
+    iconCols[1] || '',
+    iconCols[2] || ''
+  ];
+
+  // Now, get the two paragraphs (col-md-6) that represent the two text rows
+  const textCols = children.filter(div => div.classList.contains('col-md-6'));
+  // There are two rows of text, both centered, so they go in the middle column (col 2)
+  // Each row: [ '', text, '' ]
+  const rowText1 = [ '', textCols[0] || '', '' ];
+  const rowText2 = [ '', textCols[1] || '', '' ];
+  
+  const cells = [
+    headerRow,
+    rowIcons,
+    rowText1,
+    rowText2
+  ];
+  
   const table = WebImporter.DOMUtils.createTable(cells, document);
   element.replaceWith(table);
 }

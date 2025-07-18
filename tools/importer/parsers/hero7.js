@@ -1,39 +1,62 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Find the main content container
-  let mainContent = element.querySelector('.col-lg-12.text-center');
-  if (!mainContent) mainContent = element;
+  // Block header row
+  const headerRow = ['Hero'];
 
-  // Find all relevant child elements in proper order
-  // These selectors ensure we get only the direct children in the presented order
-  const children = Array.from(mainContent.childNodes).filter(node => {
-    // include element nodes, skip empty text nodes
-    return node.nodeType === 1 || (node.nodeType === 3 && node.textContent.trim() !== '');
-  });
+  // 2nd row: Background image (none present in HTML), leave blank:
+  const bgRow = [''];
 
-  // Compose the content cell (all elements except the table header row, and background row)
-  // The background image row is empty (since none is present in the HTML)
-  // We'll gather all elements except for script/style, and skip empty text nodes
-  const contentElements = [];
-  for (const node of children) {
-    if (node.nodeType === 1) {
-      // If it's an element, always include
-      contentElements.push(node);
-    } else if (node.nodeType === 3 && node.textContent.trim()) {
-      // If it's a non-empty text node, wrap in a span for HTML inclusion
-      const span = document.createElement('span');
-      span.textContent = node.textContent.trim();
-      contentElements.push(span);
+  // 3rd row: All main content
+  // Find the content container
+  const container = element.querySelector('.container');
+  if (!container) return;
+  const row = container.querySelector('.row');
+  if (!row) return;
+  const col = row.querySelector('.col-lg-12');
+  if (!col) return;
+
+  // We'll append all relevant elements to a fragment for the content cell, in their order
+  const frag = document.createDocumentFragment();
+
+  // Heading
+  const h2 = col.querySelector('h2');
+  if (h2) frag.appendChild(h2);
+  // Subheading
+  const h3 = col.querySelector('h3');
+  if (h3) frag.appendChild(h3);
+  // Links/CTAs (h5 with links)
+  // There are two h5s: first with links, second with table disclaimer
+  const h5s = col.querySelectorAll('h5');
+  let firstH5WithLinks = null;
+  let secondH5WithTable = null;
+  if (h5s.length === 2) {
+    firstH5WithLinks = h5s[0];
+    secondH5WithTable = h5s[1];
+  } else if (h5s.length === 1) {
+    // fallback: just single h5, check contents
+    if (h5s[0].querySelector('a')) {
+      firstH5WithLinks = h5s[0];
+    } else {
+      secondH5WithTable = h5s[0];
     }
   }
+  if (firstH5WithLinks) frag.appendChild(firstH5WithLinks);
+  // Main description paragraph
+  const p = col.querySelector('p');
+  if (p) frag.appendChild(p);
+  // Disclaimer (table inside h5)
+  if (secondH5WithTable) frag.appendChild(secondH5WithTable);
 
-  // Create the block table: 1 col, 3 rows (header, background image, content)
+  const contentRow = [frag];
+
+  // Compose the table
   const cells = [
-    ['Hero'],
-    [''], // No background image in this example
-    [contentElements]
+    headerRow,
+    bgRow,
+    contentRow,
   ];
 
   const block = WebImporter.DOMUtils.createTable(cells, document);
+
   element.replaceWith(block);
 }
