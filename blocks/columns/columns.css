@@ -31,3 +31,123 @@
     order: unset;
   }
 }
+
+
+.columns.columns4 {
+  background: #f8f9fa;
+  padding: 40px 0 32px;
+}
+
+/* 
+ * FLATTEN THE STRUCTURE for grid placement: 
+ * Use display: contents so each grandchild div participates in the parent grid.
+ */
+.columns.columns4 > div > div {
+  display: contents;
+}
+
+/* 
+ * GRID LAYOUT for 3-over-2 pentagon/quincunx on desktop.
+ * Place grid on the top-level content container (the direct child of .columns.columns4).
+ */
+.columns.columns4 > div {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto;
+  gap: 40px 48px;
+  max-width: 700px;
+  margin: 0 auto;
+  width: 100%;
+  place-items: start center;
+}
+
+/* 
+ * Assign explicit grid positions for each icon/label pair according to HTML structure.
+ * First row: three side-by-side items.
+ */
+.columns.columns4 > div > div:first-child > div:nth-child(1) { grid-row: 1; grid-column: 1; }
+.columns.columns4 > div > div:first-child > div:nth-child(2) { grid-row: 1; grid-column: 2; }
+.columns.columns4 > div > div:first-child > div:nth-child(3) { grid-row: 1; grid-column: 3; }
+
+/* Second row: two side-by-side items, centered under the top row. */
+.columns.columns4 > div > div:first-child > div:nth-child(4) { grid-row: 2; grid-column: 2; }
+.columns.columns4 > div:last-child > div:nth-child(1)        { grid-row: 2; grid-column: 3; }
+
+/* Hide unused placeholder/empty divs */
+.columns.columns4 > div > div > div:empty,
+.columns.columns4 > div:last-child > div:not(:first-child) {
+  display: none;
+}
+
+/* ICON/LABEL PAIRS: vertically centered & stacked */
+.columns.columns4 h4 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  margin-top: 12px;
+  font-size: 16px;
+  font-family: var(--heading-font-family);
+  font-weight: 700;
+  color: #222;
+  text-align: center;
+  line-height: 1.25;
+}
+
+/* ICON CIRCLES (SVG background as before) */
+.columns.columns4 h4[id] {
+  position: relative;
+}
+
+.columns.columns4 h4[id]::before {
+  display: block;
+  margin: 0 auto 12px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #ffd43b;
+  content: "";
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.columns.columns4 h4#liquidity-needs::before {
+  background-image: url('data:image/svg+xml;utf8,<svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="28" cy="28" r="28" fill="%23FFD43B"/><path d="M28 14C24.13 14 21 18.13 21 23C21 27.25 27.5 35.36 27.78 35.7C27.89 35.84 28.11 35.84 28.22 35.7C28.5 35.36 35 27.25 35 23C35 18.13 31.87 14 28 14ZM28 25.5C26.62 25.5 25.5 24.38 25.5 23C25.5 21.62 26.62 20.5 28 20.5C29.38 20.5 30.5 21.62 30.5 23C30.5 24.38 29.38 25.5 28 25.5Z" fill="white"/></svg>');
+}
+
+.columns.columns4 h4#return-objectives::before {
+  background-image: url('data:image/svg+xml;utf8,<svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="28" cy="28" r="28" fill="%23FFD43B"/><path d="M36.25 28c0-4.55-3.7-8.25-8.25-8.25s-8.25 3.7-8.25 8.25h2.25c0-3.32 2.68-6 6-6s6 2.68 6 6-2.68 6-6 6v2.25c4.55 0 8.25-3.7 8.25-8.25zm-8.25 0h-3.25v3.25h3.25v-3.25z" fill="white"/></svg>');
+}
+
+.columns.columns4 h4#time-horizons::before {
+  background-image: url('data:image/svg+xml;utf8,<svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="28" cy="28" r="28" fill="%23FFD43B"/><path d="M28 18v10h8M28 14C21.373 14 16 19.373 16 26s5.373 12 12 12 12-5.373 12-12S34.627 14 28 14z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+}
+
+.columns.columns4 h4#risk-tolerance--credit-quality::before {
+  background-image: url('data:image/svg+xml;utf8,<svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="28" cy="28" r="28" fill="%23FFD43B"/><path d="M28 15l-6 12h5l-3 10 10-13h-5l3-9z" fill="white"/></svg>');
+}
+
+.columns.columns4 h4#other-specific-considerations::before {
+  background-image: url('data:image/svg+xml;utf8,<svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="28" cy="28" r="28" fill="%23FFD43B"/><path d="M28 21a3 3 0 100-6 3 3 0 000 6zm0 2c-1.66 0-3 1.34-3 3v6a3 3 0 006 0v-6c0-1.66-1.34-3-3-3z" fill="white"/></svg>');
+}
+
+/* RESPONSIVE: Stack vertically on small screens */
+@media (width <= 700px) {
+  .columns.columns4 > div {
+    grid-template-columns: 1fr;
+    grid-template-rows: none;
+    gap: 32px;
+    max-width: 96vw;
+  }
+
+  .columns.columns4 > div > div > div,
+  .columns.columns4 > div:last-child > div {
+    grid-row: auto !important;
+    grid-column: auto !important;
+  }
+
+  .columns.columns4 > div:last-child > div:not(:first-child) {
+    display: none;
+  }
+}
