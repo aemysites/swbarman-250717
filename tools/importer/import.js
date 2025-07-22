@@ -101,7 +101,7 @@ function transformPage(main, { inventory, ...source }) {
   // get dom elements for each block on the current page
   const blockElements = inventoryBlocks
     .flatMap((block) => block.instances
-      .filter((instance) => WebImporter.Import.findSiteUrl(instance, urls)?.url === originalURL)
+    .filter((instance) => WebImporter.Import.findSiteUrl(instance, urls)?.url === originalURL.replace(/[/#]$/, ''))
       .map((instance) => ({
         ...block,
         element: WebImporter.Import.getElementByXPath(document, instance.xpath),

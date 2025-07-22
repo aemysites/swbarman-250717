@@ -3,13 +3,43 @@ export default function parse(element, { document }) {
   // Block header row
   const headerRow = ['Hero'];
 
-  // 2nd row: Background image (none present in HTML), leave blank:
+  // 2nd row: Background image from URL:
   const bgRow = [''];
 
   // 3rd row: All main content
   // Find the content container
   const container = element.querySelector('.container');
+  console.log('sweta: container', container);
   if (!container) return;
+
+  const headerParent = container.closest('header');
+  // Set the header's background image using relative path (avoids CORS issues)
+  if (headerParent) {
+    console.log('sweta: headerParent', headerParent);
+  const bgImageUrl = '/img/header-cilm-bg.jpg';
+  console.log('sweta: Setting background image from', bgImageUrl);
+  
+  // Create an img element with the relative URL for WebImporter to process
+  const bgImg = document.createElement('img');
+  bgImg.src = bgImageUrl;
+  bgImg.alt = 'Hero Background';
+  
+  console.log('sweta: Created image element with src:', bgImg.src);
+  bgRow.push(bgImg);
+
+    // Compose the table
+    const cells = [
+      headerRow,
+      bgRow
+    ];
+  
+    const block = WebImporter.DOMUtils.createTable(cells, document);
+  
+    element.replaceWith(block);
+    return;
+  }
+
+  // Get the content row
   const row = container.querySelector('.row');
   if (!row) return;
   const col = row.querySelector('.col-lg-12');
