@@ -31,3 +31,98 @@
     order: unset;
   }
 }
+
+
+.columns.columns5 {
+  background: #fff;
+  padding: 40px 0 24px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Center and style the heading, decrease spacing below */
+.columns.columns5 > div:first-child {
+  display: flex;
+  justify-content: center;
+}
+
+.columns.columns5 > div:first-child h3 {
+  text-align: center;
+  color: #7c868c;
+  font-size: 15px;
+  font-family: var(--heading-font-family, sans-serif);
+  font-weight: 500;
+  margin: 0 0 24px;
+  line-height: 1.3;
+}
+
+/* Columns row: side by side and centered */
+.columns.columns5 > div:nth-child(2) {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 90px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Each column: vertical stack and centered */
+.columns.columns5 > div:nth-child(2) > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 340px;
+  min-width: 0;
+  flex: 1 1 0;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* Icon circle above each h4 */
+.columns.columns5 > div:nth-child(2) h4 {
+  position: relative;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: var(--heading-font-family, sans-serif);
+  font-size: 17px;
+  font-weight: 700;
+  color: #181818;
+  line-height: 1.3;
+  padding-top: 82px; /* Space for icon */
+}
+
+/* If you later can use an icon, set it with background-image here */
+.columns.columns5 > div:nth-child(2) h4::before {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #FFD43B;
+  content: "";
+}
+
+/* Responsive: stack columns vertically on small screens, adjust gaps and icon size */
+@media (width <= 700px) {
+  .columns.columns5 > div:nth-child(2) {
+    flex-direction: column;
+    gap: 32px;
+    align-items: center;
+  }
+
+  .columns.columns5 > div:nth-child(2) h4 {
+    font-size: 15px;
+    padding-top: 70px;
+  }
+
+  .columns.columns5 > div:nth-child(2) h4::before {
+    width: 52px;
+    height: 52px;
+  }
+}
