@@ -95,13 +95,18 @@ function transformPage(main, { inventory, ...source }) {
 
   // get fragment elements from the current page
   const fragmentElements = WebImporter.Import.getFragmentXPaths(inventory, originalURL)
-    .map((xpath) => WebImporter.Import.getElementByXPath(document, xpath))
+    .map((xpath) => {
+      const element = WebImporter.Import.getElementByXPath(document, xpath);
+      return element;
+    })
     .filter((el) => el);
+
+  console.log('sweta: fragmentElements', fragmentElements);
 
   // get dom elements for each block on the current page
   const blockElements = inventoryBlocks
     .flatMap((block) => block.instances
-    .filter((instance) => WebImporter.Import.findSiteUrl(instance, urls)?.url === originalURL.replace(/[/#]$/, ''))
+    .filter((instance) => WebImporter.Import.findSiteUrl(instance, urls)?.url === originalURL)
       .map((instance) => ({
         ...block,
         element: WebImporter.Import.getElementByXPath(document, instance.xpath),
@@ -110,6 +115,7 @@ function transformPage(main, { inventory, ...source }) {
 
   // remove fragment elements from the current page
   fragmentElements.forEach((element) => {
+    console.log('sweta: Removing element:', element);
     if (element) {
       element.remove();
     }
@@ -234,7 +240,7 @@ export default {
 
     // sanitize the original URL
     /* eslint-disable no-param-reassign */
-    source.params.originalURL = new URL(originalURL).href;
+    // source.params.originalURL = new URL(originalURL).href;
 
     /* eslint-disable-next-line prefer-const */
     let publishUrl = window.location.origin;
