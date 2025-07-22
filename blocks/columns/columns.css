@@ -31,3 +31,125 @@
     order: unset;
   }
 }
+
+.columns.columns3 {
+  width: 100%;
+  margin: 40px 0;
+  padding: 0;
+}
+
+/* Flex rows, side by side columns */
+.columns.columns3 > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0 32px;
+}
+
+/* Place less specific selectors first to avoid no-descending-specificity */
+.columns.columns3 > div:nth-child(2),
+.columns.columns3 > div:nth-child(3) {
+  align-items: flex-start;
+}
+
+/* ICON + HEADING CELL (row 1) */
+.columns.columns3 > div:first-child > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 200px;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+.columns.columns3 > div:first-child > div::before {
+  display: block;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: #FFD54F;
+  margin-bottom: 2px;
+  margin-top: 0;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 40px 40px;
+  content: "";
+}
+
+/* Example placeholder SVGs in icon circles for each column */
+.columns.columns3 > div:first-child > div:nth-child(1)::before {
+  background-image: url('data:image/svg+xml;utf8,<svg fill="none" stroke="white" stroke-width="2" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="20" fill="none"/><path d="M24 14l8 5v7c0 5-4 10-8 12-4-2-8-7-8-12v-7l8-5z"/></svg>');
+}
+
+.columns.columns3 > div:first-child > div:nth-child(2)::before {
+  background-image: url('data:image/svg+xml;utf8,<svg fill="none" stroke="white" stroke-width="2" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="20" fill="none"/><ellipse cx="24" cy="24" rx="8" ry="12"/><path d="M24 12v12"/></svg>');
+}
+
+.columns.columns3 > div:first-child > div:nth-child(3)::before {
+  background-image: url('data:image/svg+xml;utf8,<svg fill="none" stroke="white" stroke-width="2" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M12 30l8-8 6 6 10-10"/><circle cx="36" cy="18" r="2" fill="white"/></svg>');
+}
+
+/* Heading styling -- reduce space below, no extra top */
+.columns.columns3 > div:first-child h4 {
+  text-align: center;
+  font-family: var(--heading-font-family);
+  font-weight: bold;
+  color: #232323;
+  font-size: 20px;
+  margin: 0 0 2px;
+  padding: 0;
+  line-height: 1.2;
+}
+
+/* Center all column cells (paragraph and empty) horizontally, but allow text to be left-aligned */
+.columns.columns3 > div:nth-child(2) > div,
+.columns.columns3 > div:nth-child(3) > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  min-width: 200px;
+  min-height: 0;
+}
+
+/* Remove any leftover margin or extra space for empty cells */
+.columns.columns3 > div:nth-child(2) > div:not(:nth-child(2)),
+.columns.columns3 > div:nth-child(3) > div:not(:nth-child(2)) {
+  min-height: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+/* Body text styling -- very tight spacing to heading */
+.columns.columns3 > div:nth-child(2) > div:nth-child(2) p,
+.columns.columns3 > div:nth-child(3) > div:nth-child(2) p {
+  font-size: 12px;
+  color: #757575;
+  text-align: left;
+  font-family: var(--body-font-family);
+  margin: 2px 0;
+  line-height: 1.5;
+  max-width: 340px;
+}
+
+/* Responsive: stack columns on small screens */
+@media (width <= 900px) {
+  .columns.columns3 > div {
+    flex-direction: column;
+    gap: 32px 0;
+  }
+
+  .columns.columns3 > div:first-child > div,
+  .columns.columns3 > div:nth-child(2) > div,
+  .columns.columns3 > div:nth-child(3) > div {
+    min-width: 0;
+    width: 100%;
+    align-items: flex-start;
+    text-align: left;
+  }
+}
