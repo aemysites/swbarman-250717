@@ -61,6 +61,10 @@
   overflow-wrap: break-word;
 }
 
+.columns.columns4 > div > div {
+  position: relative;
+}
+
 .columns.columns4 > div > div::before {
   display: block;
   width: 64px;
@@ -69,6 +73,48 @@
   background: #ffd33f;
   margin-bottom: 12px;
   content: "";
+}
+
+.columns.columns4 > div:first-child > div:nth-child(1)::after,
+.columns.columns4 > div:first-child > div:nth-child(2)::after,
+.columns.columns4 > div:first-child > div:nth-child(3)::after,
+.columns.columns4 > div:first-child > div:nth-child(4)::after,
+.columns.columns4 > div:nth-child(2) > div:nth-child(1)::after {
+  font-family: "Font Awesome 5 free";
+  display: block;
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  left: 48%;
+  top: 7px;
+  transform: translateX(-50%);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 14px 14px;
+  pointer-events: none;
+  color: #fff;
+  content: "";
+}
+
+  .columns.columns4 > div:first-child > div:nth-child(1)::after {
+    content: "\f043";
+  }
+
+.columns.columns4 > div:first-child > div:nth-child(2)::after {
+  content: "\f2ea";
+}
+
+.columns.columns4 > div:first-child > div:nth-child(3)::after {
+  content: "\f017";
+}
+
+.columns.columns4 > div:first-child > div:nth-child(4)::after {
+  content: "\f0e7";
+}
+
+.columns.columns4 > div:nth-child(2) > div:nth-child(1)::after {
+  left: 50%;
+  content: "\f069";
 }
 
 .columns.columns3 {
