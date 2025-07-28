@@ -177,10 +177,20 @@ h1 {
 
 h2 {
   font-size: var(--heading-font-size-xl);
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 10%;
 }
 
 h3 {
   font-size: var(--heading-font-size-l);
+  color: #6c757d;
+  font-weight: 400;
+  text-align: center;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-bottom: 8%;
+  font-style: italic;
 }
 
 h4 {
