@@ -1,4 +1,2 @@
 mountpoints:
-  /: 
-  url: https://content.da.live/aemy-sites/swbarman-250717
-  type: markup
+  /: https://content.da.live/aemy-sites/swbarman-250717
