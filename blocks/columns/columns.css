@@ -315,6 +315,31 @@
   content: "";
 }
 
+.columns.columns5 > div:nth-child(2) > div:nth-child(1) h4::after {
+  font-family: "Font Awesome 5 free";
+  display: block;
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  left: 48%;
+  top: 15px;
+  color: #fff;
+  content: "\f0ac";
+}
+
+
+.columns.columns5 > div:nth-child(2) > div:nth-child(2) h4::after {
+  font-family: "Font Awesome 5 free";
+  display: block;
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  left: 48%;
+  top: 15px;
+  color: #fff;
+  content: "\f201";
+}
+
 .columns.columns5 {
   background: #fff;
   padding: 40px 0 24px;
@@ -349,10 +374,12 @@
 .columns.columns6 > div:nth-child(1) > div:nth-child(1)::after,
 .columns.columns6 > div:nth-child(1) > div:nth-child(2)::after,
 .columns.columns6 > div:nth-child(1) > div:nth-child(3)::after {
+  font-family: "Font Awesome 5 free";
+  color: #fff;
   content: "";
   position: absolute;
   top: 22px;
-  left: 50%;
+  left: 52%;
   transform: translateX(-50%);
   width: 44px;
   height: 44px;
@@ -363,15 +390,15 @@
 }
 
 .columns.columns6 > div:nth-child(1) > div:nth-child(1)::after {
-  background-image: url('data:image/svg+xml;utf8,<svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><polygon points="24,7 28.2,19.3 41,19.3 30.1,27.4 34.2,39.7 24,31.7 13.8,39.7 17.9,27.4 7,19.3 19.8,19.3"/></svg>');
+  content: "\f005";
 }
 
 .columns.columns6 > div:nth-child(1) > div:nth-child(2)::after {
-  background-image: url('data:image/svg+xml;utf8,<svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><rect x="11" y="18" width="26" height="20" rx="3"/><rect x="11" y="11" width="26" height="6" rx="2"/></svg>');
+  content: "\f073";
 }
 
 .columns.columns6 > div:nth-child(1) > div:nth-child(3)::after {
-  background-image: url('data:image/svg+xml;utf8,<svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path d="M24 24 L24 7 A17 17 0 1 1 7 24 Z M27 5 L43 21 L27 21 Z"/></svg>');
+  content: "\f200";
 }
 
 .columns.columns6 h4 {
