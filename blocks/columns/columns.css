@@ -67,8 +67,8 @@
 
 .columns.columns4 > div > div::before {
   display: block;
-  width: 64px;
-  height: 64px;
+  width: 128px;
+  height: 128px;
   border-radius: 50%;
   background: #ffd33f;
   margin-bottom: 12px;
@@ -82,10 +82,9 @@
 .columns.columns4 > div:nth-child(2) > div:nth-child(1)::after {
   font-family: "Font Awesome 5 free";
   display: block;
-  width: 16px;
-  height: 16px;
+  font-size: 64px;
   position: absolute;
-  left: 48%;
+  left: 50%;
   top: 7px;
   transform: translateX(-50%);
   background-repeat: no-repeat;
