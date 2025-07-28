@@ -78,6 +78,7 @@
   display: grid;
   grid-template-rows: repeat(3, auto);
   row-gap: 0;
+  font-family: "Font Awesome 5 free";
 }
 
 .columns.columns3 > div {
@@ -133,26 +134,26 @@
   width: 16px;
   height: 16px;
   position: absolute;
-  left: 50%;
+  left: 48%;
   top: 7px;
   transform: translateX(-50%);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 14px 14px;
-  content: "";
   pointer-events: none;
+  color: #fff;
 }
 
 .columns.columns3 > div:first-child > div:nth-child(1)::after {
-  background-image: url('data:image/svg+xml;utf8,<svg width="14" height="14" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="13" cy="13" r="13" fill="none"/><path d="M13 7.5l6 3.5v4c0 3.25-2.16 6-6 6s-6-2.75-6-6v-4l6-3.5z" fill="white" stroke="white" stroke-width="1.2"/><path d="M13 11v2.5" stroke="%23000" stroke-width="1.5" stroke-linecap="round"/></svg>');
+  content: "\f3ed";
 }
 
 .columns.columns3 > div:first-child > div:nth-child(2)::after {
-  background-image: url('data:image/svg+xml;utf8,<svg width="14" height="14" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="13" cy="13" r="13" fill="none"/><path d="M13 6.5c2.76 0 5 2.24 5 5 0 3.25-2.62 6.11-4.06 7.45-.58.54-1.5.54-2.08 0C10.62 17.61 8 14.75 8 11.5c0-2.76 2.24-5 5-5z" fill="white"/></svg>');
+  content: "\f043";
 }
 
 .columns.columns3 > div:first-child > div:nth-child(3)::after {
-  background-image: url('data:image/svg+xml;utf8,<svg width="14" height="14" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="13" cy="13" r="13" fill="none"/><path d="M8 15l3-3 3 3 4-4" stroke="white" stroke-width="2" fill="none"/><rect x="7" y="17" width="12" height="2" rx="1" fill="white"/></svg>');
+  content: "\f201";
 }
 
 .columns.columns3 > div:first-child h4 {
