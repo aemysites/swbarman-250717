@@ -6,7 +6,7 @@
 .hero {
   position: relative;
   padding: 40px 24px;
-  min-height: 300px;
+  min-height: 500px;
 }
 
 .hero h1,
@@ -38,6 +38,30 @@
   object-fit: cover;
   width: 100%;
   height: 100%;
+}
+
+.hero.hero7.no-image {
+  background-color: #212529;
+  background-image: url(https://www.ilmgmt.com/img/map-image.png);
+  color: #fff;
+}
+
+.hero.hero7.no-image h2, 
+.hero.hero7.no-image h3,
+.hero.hero7.no-image h4,
+.hero.hero7.no-image h5,
+.hero.hero7.no-image h6,
+.hero.hero7.no-image p {
+  color: #fff;
+  text-align: center;
+}
+
+.hero.hero7.no-image a {
+  color: #fed136;
+}
+
+.hero.hero7.no-image p {
+  font-size: 16px;
 }
 
 @media (width >= 900px) {
