@@ -370,8 +370,8 @@
   display: block;
   position: relative;
   margin: 0 auto 14px;
-  width: 90px;
-  height: 90px;
+  width: 128px;
+  height: 128px;
   border-radius: 50%;
   background: #FFD43B;
 }
@@ -383,11 +383,10 @@
   color: #fff;
   content: "";
   position: absolute;
-  top: 22px;
-  left: 52%;
+  top: 7px;
+  left: 50%;
   transform: translateX(-50%);
-  width: 44px;
-  height: 44px;
+  font-size: 64px;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
